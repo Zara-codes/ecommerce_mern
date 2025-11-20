@@ -6,6 +6,11 @@ import { genToken } from "../config/token.js"
 export const registration = async (req, res) => {
     try {
         const { name, email, password } = req.body
+
+        if (!name || !email || !password) {
+            return res.status(400).json({ message: "All fields are required" })
+        }
+
         const existUser = await User.findOne({ email })
         if (existUser) {
             return res.status(400).json({ message: "User already exists..." })
@@ -22,6 +27,7 @@ export const registration = async (req, res) => {
         let hashPassword = await bcrypt.hash(password, 10)
 
         const user = await User.create({ name, email, password: hashPassword })
+        
         let token = await genToken(user)
 
         res.cookie("token", token, {
@@ -30,7 +36,7 @@ export const registration = async (req, res) => {
             sameSite: "Strict",
             maxAge: 7 * 24 * 60 * 60 * 1000
         })
-        return res.status(201).json({message: "Login successful"})
+        return res.status(201).json({message: "Registration successful"})
     } catch (error) {
         console.log(`Register error: ${error}`)
         return res.status(500).json({ message: `Register error` })
