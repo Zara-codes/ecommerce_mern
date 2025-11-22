@@ -8,6 +8,7 @@ import { AuthDataContext } from '../context/AuthContext';
 import axios from 'axios';
 import { signInWithPopup } from 'firebase/auth';
 import { auth, provider } from '../../utils/Firebase';
+import { userDataContext } from '../context/UserContext';
 
 
 function Login() {
@@ -16,8 +17,10 @@ function Login() {
   let {serverUrl} = useContext(AuthDataContext)
   let navigate = useNavigate()
   let [show, setShow] = useState(false)
-
+  let {getCurrentUser} = useContext(userDataContext)
+  
   const handleLogin = async (e) => {
+    e.preventDefault()
     try {
       const result = await axios.post(`${serverUrl}/api/auth/login`, {
         email, password
@@ -25,6 +28,7 @@ function Login() {
         withCredentials: true
       })
       console.log("Login successful", result.data)
+      getCurrentUser()
       navigate("/")
     } catch (error) {
       console.log(`Frontend login error: ${error}`)

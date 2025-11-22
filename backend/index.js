@@ -4,6 +4,7 @@ import connectDb from "./config/db.js"
 import cookieParser from "cookie-parser"
 import authRoutes from "./routes/authRoutes.js"
 import cors from "cors"
+import userRoutes from "./routes/userRoutes.js"
 
 dotenv.config()
 
@@ -19,6 +20,7 @@ app.use(cors({
 }))
 
 app.use("/api/auth", authRoutes)
+app.use("/api/user", userRoutes)
 
 app.listen(PORT, () => {
     console.log(`App is listening at port ${PORT}`)
