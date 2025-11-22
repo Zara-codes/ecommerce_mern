@@ -1,9 +1,8 @@
-// Import the functions you need from the SDKs you need
+import {getAuth, GoogleAuthProvider} from "firebase/auth"
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDiCLDMTcSMJjEiP1Em3k5g8P8Y8LVrGco",
+  apiKey: import.meta.env.VITE_FIREBASE_APIKEY,
   authDomain: "loginmcart.firebaseapp.com",
   projectId: "loginmcart",
   storageBucket: "loginmcart.firebasestorage.app",
@@ -12,6 +11,8 @@ const firebaseConfig = {
   measurementId: "G-YP3M51ZFJP"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+const auth = getAuth(app)
+const provider = new GoogleAuthProvider()
+
+export {auth, provider}
