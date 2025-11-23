@@ -4,11 +4,14 @@ import Home from './pages/Home'
 import Registration from './pages/Registration'
 import Login from './pages/Login'
 import Nav from './component/Nav'
+import { useContext } from 'react'
+import { userDataContext } from './context/UserContext'
 
 function App() {
+  let {userData} = useContext(userDataContext)
   return (
     <>
-      <Nav />
+      {userData && <Nav />}
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/signup' element={<Registration />} />

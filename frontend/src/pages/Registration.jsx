@@ -8,6 +8,7 @@ import { AuthDataContext } from '../context/AuthContext';
 import axios from "axios"
 import { signInWithPopup } from 'firebase/auth';
 import { auth, provider } from '../../utils/Firebase';
+import { getCurrentUser } from '../../../backend/controller/userController';
 
 
 const Registration = () => {
@@ -25,6 +26,8 @@ const Registration = () => {
             const result = await axios.post(`${serverUrl}/api/auth/registration`, {
                 name, email, password
             }, {withCredentials: true})
+            getCurrentUser()
+            navigate('/')
             console.log(result.data)
         } catch (error) {
             console.log(`Signup Error: ${error}`)
@@ -42,6 +45,8 @@ const Registration = () => {
                 name,
                 email
             }, {withCredentials: true})
+            getCurrentUser()
+            navigate('/')
             console.log(result.data)
         } catch (error) {
             console.log(`Google Signup Error: ${error}`)
