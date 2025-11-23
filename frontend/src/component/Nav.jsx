@@ -30,7 +30,7 @@ const Nav = () => {
     }
 
     return (
-        <div className='w-[100vw] h-[70px] bg-[#ecfafaec] z-index fixed top-0 flex items-center justify-between px-[30px] shadow-md shadow-black'>
+        <div className='w-[100vw] h-[70px] bg-[#ecfafaec] z-10 fixed top-0 flex items-center justify-between px-[30px] shadow-md shadow-black'>
 
             <div className='w-[20%] lg:w-[30%] flex items-center justify-start gap-[10px]'>
                 <img src={logo} alt="MCart Logo" className='w-[30px]' />
