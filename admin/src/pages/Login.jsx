@@ -4,6 +4,8 @@ import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { IoEye } from "react-icons/io5";
 import axios from "axios"
 import { AuthDataContext } from '../context/AuthContext';
+import { adminDataContext } from '../context/AdminContext';
+import {useNavigate} from "react-router-dom"
 
 const Login = () => {
   let [show, setShow] = useState(false)
@@ -12,10 +14,15 @@ const Login = () => {
 
   let {serverUrl} = useContext(AuthDataContext)
 
+  let {adminData, getAdmin} = useContext(adminDataContext)
+  let navigate = useNavigate()
+
   const adminLogin = async (e) => {
     e.preventDefault()
     try {
       const result = await axios.post(`${serverUrl}/api/auth/adminlogin`, {email, password}, {withCredentials: true})
+      getAdmin()
+      navigate('/')
       console.log(result.data)
     } catch (error) {
       console.log(`adminLogin error: ${error}`)

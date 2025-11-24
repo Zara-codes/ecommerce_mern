@@ -10,9 +10,9 @@ export const genToken = (userId) => {
     }
 }
 
-export const genToken1 = async (email) => {
+export const genToken1 =  (email) => {
     try {
-        const token = await jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: "7d" })
+        const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: "7d" })
         return token
     } catch (error) {
         console.log(`Token error: ${error}`)
