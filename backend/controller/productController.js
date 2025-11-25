@@ -34,3 +34,24 @@ export const addProduct = async (req, res) => {
             return res.status(500).json({message: `Add Product Error: ${error}`})
     }
 }
+
+export const listProduct = async (req, res) => {
+    try {
+        const product = await Product.find({})
+        return res.status(201).json(product)
+    } catch (error) {
+        console.log("List product error ", error)
+        return res.status(500).jsn({message: `ListProduct error: ${error}`})
+    }
+}
+
+export const removeProduct = async (req, res) => {
+    try {
+        let {id} = req.params
+        const product = await Product.findByIdAndDelete(id)
+        return res.status(200).json(product)
+    } catch (error) {
+        console.log("Remove Product error")
+        return res.status(500).json({message: `Remove Product error: ${error}`})
+    }
+}

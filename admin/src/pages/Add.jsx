@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import Nav from '../component/Nav'
 import Sidebar from '../component/Sidebar'
 import uploadImage from "../assets/uploadImage.webp"
@@ -22,6 +22,11 @@ const Add = () => {
   let [sizes, setSizes] = useState([])
 
   let {serverUrl} = useContext(AuthDataContext)
+
+  const image1Ref = useRef()
+  const image2Ref = useRef()
+  const image3Ref = useRef()
+  const image4Ref = useRef()
   
   const handleAddProduct = async (e) => {
     e.preventDefault()
@@ -39,7 +44,7 @@ const Add = () => {
       formData.append("image3",image3)
       formData.append("image4",image4)
 
-      let result = await axios.post(`${serverUrl}/api/product/addproduct`, formData, {withCredentials: true})
+      const result = await axios.post(`${serverUrl}/api/product/addproduct`, formData, {withCredentials: true})
 
       console.log(serverUrl)
       console.log(result.data)
@@ -55,6 +60,11 @@ const Add = () => {
         setBestSeller(false)
         setCategory("Kids")
         setSubCategory("TopWear")
+
+        image1Ref.current.value = ""
+        image2Ref.current.value = ""
+        image3Ref.current.value = ""
+        image4Ref.current.value = ""
       }
     } catch (error) {
       console.log(`handleAddProduct Error: ${error}`)
