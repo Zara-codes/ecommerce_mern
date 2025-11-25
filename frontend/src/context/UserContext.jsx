@@ -11,17 +11,16 @@ const UserContext = ({children}) => {
     
     const getCurrentUser = async () => {
         try {
-            let result = await axios.post(
+            let result = await axios.get(
                 `${serverUrl}/api/user/getCurrentUser`,
-                {}, 
                 {
                     withCredentials: true
                 }
             )
             setUserData(result.data)
-            console.log(result.data)
         } catch (error) {
-            console.log(`getCurrentUser error: ${error}`)
+            console.log(`User not logged in`)
+            setUserData(null)
         }
     }
 

@@ -13,7 +13,7 @@ const Lists = () => {
 
   const fetchList = async () => {
     try {
-      let result = await axios.get(`${serverUrl}/api/product/list`)
+      let result = await axios.get(`${serverUrl}/api/product/list`, { withCredentials: true })
       setList(result.data)
       console.log(result.data)
     } catch (error) {
