@@ -3,6 +3,8 @@ import Background from '../component/Background'
 import Hero from '../component/Hero'
 import Product from './Product'
 import OurPolicy from '../component/OurPolicy'
+import NewsLetterBox from '../component/NewsLetterBox'
+import Footer from '../component/Footer'
 
 const Home = () => {
   let heroData = [
@@ -29,6 +31,8 @@ const Home = () => {
 
       <Product />
       <OurPolicy />
+      <NewsLetterBox />
+      <Footer />
     </div>
   )
 }
