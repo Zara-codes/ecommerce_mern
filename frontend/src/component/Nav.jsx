@@ -55,7 +55,7 @@ const Nav = () => {
                 <p className='absolute w-[18px] h-[18px] items-center justify-center bg-black px-[5px] py-[2px] text-white rounded-full text-[9px] top-[10px] right-[23px]  hidden md:block'>10</p>
             </div>
             {showSearch && <div className='w-[100%] h-[80px] bg-[#d8f6f9dd] absolute top-[100%] left-0 right-0 flex items-center justify-center'>
-                <input type="text" className='w-[50%] h-[60%] bg-[#233533] rounded-[30px] px-[50px] placeholder:text-white text-[white] text-[18px]' placeholder='Search Here...' />
+                <input type="text" className='lg:w-[50%] w-[80%] h-[60%] bg-[#233533] rounded-[30px] px-[50px] placeholder:text-white text-[white] text-[18px]' placeholder='Search Here...' />
             </div>}
 
             {showProfile && <div className='absolute w-[220px] h-[150px] bg-[#000000d7] top-[110%] right-[4%] border-[1px] border-[#aaa9a9] rounded-[10px] z-10'>
@@ -83,10 +83,11 @@ const Nav = () => {
             </div>}
 
             <div className='w-[100vw] h-[90px] flex items-center justify-between px-[20px] fixed bottom-0 left-0 bg-[#191818] md:hidden text-[12px]'>
-                <button className='text-[white] flex items-center justify-center flex-col gap-[2px]'><IoMdHome className='w-[25px] h-[25px] text-[white] md:hidden' onClick={() => navigate('/')} />Home</button>
-                <button className='text-[white] flex items-center justify-center flex-col gap-[2px]'><HiOutlineCollection className='w-[25px] h-[25px] text-[white] md:hidden' onClick={() => navigate('/collections')} />Collections</button>
-                <button className='text-[white] flex items-center justify-center flex-col gap-[2px]'><MdContacts className='w-[25px] h-[25px] text-[white] md:hidden' onClick={() => navigate('/contact')}/>Contact</button>
-                <button className='text-[white] flex items-center justify-center flex-col gap-[2px]'><MdOutlineShoppingCart className='w-[25px] h-[25px] text-[white] md:hidden' />Cart</button>
+                <button className='text-[white] flex items-center justify-center flex-col gap-[2px]'><IoMdHome className='w-[28px] h-[28px] text-[white] md:hidden' onClick={() => navigate('/')} />Home</button>
+                <button className='text-[white] flex items-center justify-center flex-col gap-[2px]'><HiOutlineCollection className='w-[28px] h-[28px] text-[white] md:hidden' onClick={() => navigate('/collections')} />Collections</button>
+                <button className='text-[white] flex items-center justify-center flex-col gap-[2px]'><MdContacts className='w-[28px] h-[28px] text-[white] md:hidden' onClick={() => navigate('/contact')}/>Contact</button>
+                <button className='text-[white] flex items-center justify-center flex-col gap-[2px]'><MdOutlineShoppingCart className='w-[28px] h-[28px] text-[white] md:hidden' />Cart</button>
+                <p className='absolute w-[18px] h-[18px] flex items-center justify-center bg-white px-[5px] py-[2px] text-black font-semibold rounded-full text-[9px] top-[8px] right-[18px]'>10</p>
             </div>
         </div >
     )

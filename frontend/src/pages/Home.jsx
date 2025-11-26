@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Background from '../component/Background'
 import Hero from '../component/Hero'
+import Product from './Product'
 
 const Home = () => {
   let heroData = [
@@ -24,6 +25,8 @@ const Home = () => {
         <Background heroCount={heroCount} />
         <Hero heroCount={heroCount} setHeroCount={setHeroCount} heroData={heroData[heroCount]} />
       </div>
+
+      <Product />
     </div>
   )
 }
