@@ -11,11 +11,12 @@ import axios from 'axios';
 import { IoMdHome } from "react-icons/io";
 import { HiOutlineCollection } from "react-icons/hi";
 import { MdContacts } from "react-icons/md";
+import { shopDataContext } from '../context/ShopContext';
 
 const Nav = () => {
     let { getCurrentUser, userData } = useContext(userDataContext)
     let { serverUrl } = useContext(AuthDataContext)
-    let [showSearch, setShowSearch] = useState(false)
+    let {showSearch, setShowSearch, search, setSearch} = useContext(shopDataContext)
     let [showProfile, setShowProfile] = useState(false)
     let navigate = useNavigate()
 
@@ -32,7 +33,7 @@ const Nav = () => {
     return (
         <div className='w-[100vw] h-[70px] bg-[#ecfafaec] z-10 fixed top-0 flex items-center justify-between px-[30px] shadow-md shadow-black'>
 
-            <div className='w-[20%] lg:w-[30%] flex items-center justify-start gap-[10px]'>
+            <div className='w-[20%] lg:w-[30%] flex items-center justify-start gap-[10px] cursor-pointer' onClick={() => navigate('/')}>
                 <img src={logo} alt="MCart Logo" className='w-[30px]' />
                 <h1 className='text-[25px] text-[black] font-sans'>MCART</h1>
             </div>
@@ -47,7 +48,7 @@ const Nav = () => {
             </div>
 
             <div className='w-[30%] flex items-center justify-end gap-[20px]'>
-                {!showSearch && <IoSearchCircleOutline className='w-[38px] h-[38px] text-[#000000] cursor-pointer' onClick={() => setShowSearch(prev => !prev)} />}
+                {!showSearch && <IoSearchCircleOutline className='w-[38px] h-[38px] text-[#000000] cursor-pointer' onClick={() => {setShowSearch(prev => !prev); navigate("/collections")}} />}
                 {showSearch && <IoSearchCircleSharp className='w-[38px] h-[38px] text-[#000000] cursor-pointer' onClick={() => setShowSearch(prev => !prev)} />}
                 {!userData && <FaUserCircle className='w-[38px] h-[38px] text-[#000000] cursor-pointer' onClick={() => setShowProfile(prev => !prev)} />}
                 {userData && <div className='w-[30px] h-[30px] bg-[#080808] text-white rounded-full flex items-center justify-center cursor-pointer' onClick={() => setShowProfile(prev => !prev)}>{userData?.name.slice(0, 1)}</div>}
@@ -55,7 +56,7 @@ const Nav = () => {
                 <p className='absolute w-[18px] h-[18px] items-center justify-center bg-black px-[5px] py-[2px] text-white rounded-full text-[9px] top-[10px] right-[23px]  hidden md:block'>10</p>
             </div>
             {showSearch && <div className='w-[100%] h-[80px] bg-[#d8f6f9dd] absolute top-[100%] left-0 right-0 flex items-center justify-center'>
-                <input type="text" className='lg:w-[50%] w-[80%] h-[60%] bg-[#233533] rounded-[30px] px-[50px] placeholder:text-white text-[white] text-[18px]' placeholder='Search Here...' />
+                <input type="text" className='lg:w-[50%] w-[80%] h-[60%] bg-[#233533] rounded-[30px] px-[50px] placeholder:text-white text-[white] text-[18px]' placeholder='Search Here...' onChange={(e) => setSearch(e.target.value)} value={search} />
             </div>}
 
             {showProfile && <div className='absolute w-[220px] h-[150px] bg-[#000000d7] top-[110%] right-[4%] border-[1px] border-[#aaa9a9] rounded-[10px] z-10'>

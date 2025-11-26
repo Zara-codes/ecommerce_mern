@@ -7,6 +7,8 @@ export const shopDataContext = createContext()
 const ShopContext = ({children}) => {
 
     let [products, setProducts] = useState([])
+    let [search, setSearch] = useState('')
+    let [showSearch, setShowSearch] = useState(false)
     let {serverUrl} = useContext(AuthDataContext)
     let currency = "Rs."
     let delivery_fee = 100
@@ -26,7 +28,7 @@ const ShopContext = ({children}) => {
     }, [])
 
     let value = {
-        products, currency, delivery_fee, getProducts
+        products, currency, delivery_fee, getProducts, search, setSearch, showSearch, setShowSearch
     }
 
   return (
