@@ -133,7 +133,7 @@ const ShopContext = ({children}) => {
     }, [userData])
 
     let value = {
-        products, currency, delivery_fee, getProducts, search, setSearch, showSearch, setShowSearch, cartItem, addToCart, getCartCount, getCartAmount, setCartItem, getUserCart, setCartItem, updateQuantity
+        products, currency, delivery_fee, getProducts, search, setSearch, showSearch, setShowSearch, cartItem, addToCart, getCartCount, getCartAmount, setCartItem, getUserCart, updateQuantity
     }
 
   return (

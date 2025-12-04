@@ -1,5 +1,9 @@
 import Order from "../model/orderModel.js"
 import User from "../model/userModel.js"
+import dotenv from "dotenv"
+dotenv.config()
+
+const currency = 'nr'
 
 // For Users
 export const placeOrder = async (req, res) => {
@@ -33,6 +37,9 @@ export const placeOrder = async (req, res) => {
         res.status(500).json({message: 'Order Place error'})       
     }
 }
+
+
+
 
 
 export const userOrders = async (req, res) => {

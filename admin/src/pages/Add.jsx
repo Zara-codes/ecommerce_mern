@@ -6,6 +6,8 @@ import { useState } from 'react'
 import { useContext } from 'react'
 import { AuthDataContext } from '../context/AuthContext'
 import axios from 'axios'
+import { toast } from 'react-toastify'
+import Loading from '../component/Loading'
 
 
 const Add = () => {
@@ -13,14 +15,14 @@ const Add = () => {
   let [image2, setImage2] = useState(false)
   let [image3, setImage3] = useState(false)
   let [image4, setImage4] = useState(false)
-  let [name, setName] = useState("")
-  let [description, setDescription] = useState("")
-  let [category, setCategory] = useState("Kids")
-  let [price, setPrice] = useState("")
-  let [subCategory, setSubCategory] = useState("TopWear")
-  let [bestSeller, setBestSeller] = useState(false)
-  let [sizes, setSizes] = useState([])
-
+  const [name, setName] = useState("")
+  const [description, setDescription] = useState("")
+  const [category, setCategory] = useState("Kids")
+  const [price, setPrice] = useState("")
+  const [subCategory, setSubCategory] = useState("TopWear")
+  const [bestSeller, setBestSeller] = useState(false)
+  const [sizes, setSizes] = useState([])
+  const [loading, setLoading] = useState(false)
   let {serverUrl} = useContext(AuthDataContext)
 
   const image1Ref = useRef()
@@ -29,6 +31,7 @@ const Add = () => {
   const image4Ref = useRef()
   
   const handleAddProduct = async (e) => {
+    setLoading(true)
     e.preventDefault()
     try {
       let formData = new FormData()
@@ -46,8 +49,9 @@ const Add = () => {
 
       const result = await axios.post(`${serverUrl}/api/product/addproduct`, formData, {withCredentials: true})
 
-      console.log(serverUrl)
       console.log(result.data)
+      toast.success("Product Added Succesfully.")
+      setLoading(false)
 
       if (result.data) {
         setName("")
@@ -68,7 +72,8 @@ const Add = () => {
       }
     } catch (error) {
       console.log(`handleAddProduct Error: ${error}`)
-
+      setLoading(false)
+      toast.error("Add Product Failed")
     }
   }
 
@@ -167,7 +172,7 @@ const Add = () => {
             <label htmlFor="checkbox" className='text-[18px] md:text-[22px] font-semibold'>Add to Best Seller</label>
           </div>
 
-          <button className='w-[140px] px-[20px] py-[20px] rounded-xl bg-[#65d8f7] flex items-center justify-center gap-[10px] text-black active:bg-slate-700 active:text-white active:border-[2px] border-white'>Add Product</button>
+                                              <button className='w-[140px] px-[20px] py-[20px] rounded-xl bg-[#65d8f7] flex items-center justify-center gap-[10px] text-black active:bg-slate-700 active:text-white active:border-[2px] border-white'>{loading ? <Loading /> : "Add Product"}</button>
 
         </form>
       </div>

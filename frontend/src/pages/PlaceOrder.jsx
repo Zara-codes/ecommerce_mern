@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
+import esewa from "../assets/esewa.jpg"
 import Title from '../component/Title'
 import CartTotal from '../component/CartTotal'
-import razorpay from "../assets/razorpay.jpg"
 import { shopDataContext } from '../context/ShopContext'
 import { AuthDataContext } from '../context/AuthContext'
 import axios from 'axios'
@@ -31,6 +31,7 @@ const PlaceOrder = () => {
     setFormData(data => ({...data, [name]: value}))
   }
 
+  
   const onSubmitHandler = async (e) => {
     e.preventDefault()
     try {
@@ -63,6 +64,16 @@ const PlaceOrder = () => {
             console.log(result.data.message)
           }
           break;
+
+        // For online payment
+        case 'esewa':
+          const resultEsewa = await axios.post(`${serverUrl}/api/order/esewa`, orderData, {withCredentials: true})
+
+          if (esewa.data) {
+            // initPay(resultRazorpay.data)
+          }
+          break;
+
         default:
           break;
       }
@@ -128,8 +139,8 @@ const PlaceOrder = () => {
             <Title text1={'PAYMENT '} text2={'METHOD'} />
           </div>
           <div className='w-[100%] h-[30vh] lg:h-[100px] flex items-start mt-[20px] lg:mt-[0px] justify-center gap-[50px]'>
-            <button onClick={() => setMethod('razorpay')} className={`w-[150px] h-[50px] rounded-sm ${method === 'razorpay' ? 'border-[5px] border-blue-900 rounded-sm' : ''}`}>
-              <img src={razorpay} className='w-[100%] h-[100%] object-fill rounded-sm' alt="" />
+            <button onClick={() => setMethod('esewa')} className={`w-[150px] h-[50px] rounded-sm ${method === 'esewa' ? 'border-[5px] border-blue-900 rounded-sm' : ''}`}>
+              <img src={esewa} className='w-[100%] h-[100%] object-fill rounded-sm' alt="" />
             </button>
 
             <button onClick={() => setMethod('cod')} className={`w-[200px] h-[50px] bg-gradient-to-l from-[#95b3f8] to-[white] text-[14px] px-[20px] rounded-sm text-[#332f6f] font-bold ${method === 'cod' ? 'border-[5px] border-blue-900 rounded-sm' : ''}`}>
