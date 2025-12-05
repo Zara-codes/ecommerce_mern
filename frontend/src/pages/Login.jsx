@@ -27,7 +27,7 @@ function Login() {
       }, {
         withCredentials: true
       })
-      console.log("Login successful", result.data)
+      console.log("Login successful")
       getCurrentUser()
       navigate("/")
     } catch (error) {
@@ -48,7 +48,6 @@ function Login() {
             }, {withCredentials: true})
             getCurrentUser()
             navigate('/')
-            console.log(result.data)
         } catch (error) {
             console.log(`Google Signup Error: ${error}`)
         }

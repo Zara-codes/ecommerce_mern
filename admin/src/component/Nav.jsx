@@ -15,7 +15,6 @@ const Nav = () => {
     try {
       const result = await axios.get(`${serverUrl}/api/auth/logout`, {withCredentials: true})
       getAdmin()
-      console.log(result.data)
       navigate('/login')
     } catch (error) {
       console.log(`Admin Logout error: ${error}`)

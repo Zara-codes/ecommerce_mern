@@ -21,7 +21,6 @@ const ShopContext = ({children}) => {
     const getProducts = async () => {
         try {
             let result = await axios.get(`${serverUrl}/api/product/list`)
-            console.log(result.data)
             setProducts(result.data)
         } catch (error) {
             console.log(`getProducts Error: ${error}`)
@@ -53,7 +52,6 @@ const ShopContext = ({children}) => {
             try {
                 let result = await axios.post(`${serverUrl}/api/cart/add`, { itemId, size }, {withCredentials: true})
                 // setLoading(false)
-                console.log(result.data)
             } catch (error) {
                 console.log(`addToCart error: ${error}`)
             }

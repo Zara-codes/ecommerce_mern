@@ -22,11 +22,9 @@ const Login = () => {
     e.preventDefault()
     try {
       const result = await axios.post(`${serverUrl}/api/auth/adminlogin`, {email, password}, {withCredentials: true})
-      console.log(result.data)
       toast.success("Admin Logged In Succesfully")
       getAdmin()
       navigate('/')
-      console.log(result.data)
     } catch (error) {
       console.log(`adminLogin error: ${error}`)
       toast.error("Admin Login Failed")

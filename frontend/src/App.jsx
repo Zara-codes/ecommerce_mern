@@ -19,6 +19,7 @@ import PaymentForm from './component/PaymentForm'
 import Success from './pages/Success'
 import Failure from './pages/Failure'
 import { ToastContainer, toast } from 'react-toastify';
+import Ai from './component/Ai'
 
 function App() {
   let { userData } = useContext(userDataContext)
@@ -67,6 +68,7 @@ function App() {
           state={{ from: location.pathname }} />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
+      <Ai />
     </>
   )
 }

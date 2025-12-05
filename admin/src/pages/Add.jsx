@@ -49,7 +49,6 @@ const Add = () => {
 
       const result = await axios.post(`${serverUrl}/api/product/addproduct`, formData, {withCredentials: true})
 
-      console.log(result.data)
       toast.success("Product Added Succesfully.")
       setLoading(false)
 

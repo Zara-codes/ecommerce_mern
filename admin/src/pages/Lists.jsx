@@ -15,7 +15,6 @@ const Lists = () => {
     try {
       let result = await axios.get(`${serverUrl}/api/product/list`, { withCredentials: true })
       setList(result.data)
-      console.log(result.data)
     } catch (error) {
       console.log("fetchList error: ", error)
     }

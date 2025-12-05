@@ -72,7 +72,7 @@ const Ai = () => {
         // openingSound.play()
         setActiveAi(true)
         }}>
-        <img src={ai} alt="AI image" className={`w-[100px] cursor-pointer ${activeAi ? 'translate-x-[10%] translate-y-[0] scale-125' : 'translate-x-[0] translate-y-[0] scale-100'} transition-transform`} style={{filter: `${activeAi ? "drop-shadow(0px 0px 30px #00d2fc)" : "drop-shadow(0px 0px 20px black)"}`}} />
+        <img src={ai} alt="AI image" className={` bg-gray-400 rounded-full p-[10px] w-[100px] cursor-pointer ${activeAi ? 'translate-x-[10%] translate-y-[0] scale-125' : 'translate-x-[0] translate-y-[0] scale-100'} transition-transform`} style={{filter: `${activeAi ? "drop-shadow(0px 0px 30px #00d2fc)" : "drop-shadow(0px 0px 20px black)"}`}} />
     </div>
   )
 }
