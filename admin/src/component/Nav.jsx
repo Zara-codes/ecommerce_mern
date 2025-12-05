@@ -22,7 +22,7 @@ const Nav = () => {
   }
   return (
     <div className='w-[100vw] h-[70px] bg-[#dcdbdbf8] z-10 fixed top-0 flex items-center justify-between px-[30px] overflow-x-hidden shadow-md shadow-black'>
-      <div className='w-[30%] flex items-center justify-start gap-[10px] cursor-pointer' onClick={() => NavigationHistoryEntry('/')}>
+      <div className='w-[30%] flex items-center justify-start gap-[10px] cursor-pointer' onClick={() => navigate('/')}>
         <img src={logo} alt="MCART Logo" className='w-[30px]' />
         <h1 className='text-[25px] text-[black] font-sans'>MCART</h1>
       </div>
