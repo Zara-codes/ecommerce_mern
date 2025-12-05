@@ -18,6 +18,7 @@ import NotFound from './pages/NotFound'
 import PaymentForm from './component/PaymentForm'
 import Success from './pages/Success'
 import Failure from './pages/Failure'
+import { ToastContainer, toast } from 'react-toastify';
 
 function App() {
   let { userData } = useContext(userDataContext)
@@ -25,6 +26,7 @@ function App() {
 
   return (
     <>
+      <ToastContainer />
       {userData && <Nav />}
       <Routes>
         <Route path='/signup' element={

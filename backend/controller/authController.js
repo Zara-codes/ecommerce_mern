@@ -119,7 +119,7 @@ export const adminLogin = async (req, res) => {
                 sameSite: "lax",
                 maxAge: 1 * 24 * 60 * 60 * 1000
             })
-            return res.status(200).json({ token })
+            return res.status(200).json({ message: "Admin logged in successfully" });
         }
         return res.status(400).json({message: "Invalid credentials"})
     } catch (error) {

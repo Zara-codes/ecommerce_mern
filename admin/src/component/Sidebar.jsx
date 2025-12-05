@@ -19,7 +19,7 @@ const Sidebar = () => {
           <p className='hidden md:block'>List Items</p>
         </div>
 
-        <div className='flex items-center justify-center md:justify-start gap-3 border border-gray-200 border-r-0 px-3 py-2 cursor-pointer hover:bg-[#2c7b89]' onClick={() => navigate('/orders')}>
+        <div className='flex items-center justify-center md:justify-start gap-3 border border-gray-200 border-r-0 px-3 py-2 cursor-pointer hover:bg-[#2c7b89]' onClick={() => navigate('/order')}>
           <FaRegCircleCheck className='w-[20px] h-[20px]' />
           <p className='hidden md:block'>View Orders</p>
         </div>

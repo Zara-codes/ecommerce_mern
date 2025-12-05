@@ -4,7 +4,7 @@ import { shopDataContext } from '../context/ShopContext'
 import { FaStar } from "react-icons/fa";
 import { FaStarHalfStroke } from "react-icons/fa6";
 import RelatedProduct from '../component/RelatedProduct';
-
+import { toast } from 'react-toastify';
 const ProductDetail = () => {
   let { productId } = useParams()
   let { products, currency, addToCart } = useContext(shopDataContext)
@@ -91,7 +91,16 @@ const ProductDetail = () => {
               }
             </div>
 
-            <button className='text-[16px] active:bg-slate-500 cursor-pointer bg-[#495b61c9] py-[10px] px-[20px] rounded-2xl mt-[10px] border-[1px] border-[#80808049] text-white shadow-md shadow-black' onClick={() => addToCart(productData._id, size)}>Add To Cart</button>
+            <button className='text-[16px] active:bg-slate-500 cursor-pointer bg-[#495b61c9] py-[10px] px-[20px] rounded-2xl mt-[10px] border-[1px] border-[#80808049] text-white shadow-md shadow-black'
+              onClick={() => {
+                if (size) {
+                  addToCart(productData._id, size);
+                  toast.success(`Product (${productData.name}) added to cart`);
+                } else {
+                  toast.error("Please select a size first");
+                }
+              }}
+            >Add To Cart</button>
           </div>
 
           <div className='w-[90%] h-[1px] bg-slate-700'>

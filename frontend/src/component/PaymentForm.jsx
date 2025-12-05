@@ -3,6 +3,7 @@ import axios from "axios";
 import { shopDataContext } from "../context/ShopContext";
 import { generateUniqueId } from "esewajs";
 import { AuthDataContext } from "../context/AuthContext";
+import { toast } from 'react-toastify';
 
 const PaymentForm = () => {
   const { cartItem, products, getCartAmount, delivery_fee, setCartItem } = useContext(shopDataContext);
@@ -67,16 +68,18 @@ const PaymentForm = () => {
       window.location.href = res.data.url; // Redirect to eSewa payment page
     } else {
       console.error("Payment URL not returned from backend");
+      toast.error("Payment Error")
     }
 
   } catch (error) {
+    toast.error("Payment Error")
     console.error("Payment error:", error);
   }
 };
 
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+    <div className="w-[100vw] h-[100vh] bg-gradient-to-l from-[#141414] to-[#0c2025] min-h-screen flex items-center justify-center bg-gray-100 px-4">
       <div className="bg-white shadow-xl rounded-2xl p-8 w-full max-w-md">
         <h1 className="text-2xl font-bold text-center text-green-600 mb-6">
           ESewa Payment Integration
