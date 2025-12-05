@@ -10,8 +10,8 @@ import { useNavigate } from 'react-router-dom'
 const PlaceOrder = () => {
   let [method, setMethod] = useState('cod')
   let navigate = useNavigate()
-  const {cartItem, setCartItem, getCartAmount, delivery_fee, products} = useContext(shopDataContext)
-  let {serverUrl} = useContext(AuthDataContext)
+  const { cartItem, setCartItem, getCartAmount, delivery_fee, products } = useContext(shopDataContext)
+  let { serverUrl } = useContext(AuthDataContext)
 
   let [formData, setFormData] = useState({
     firstName: '',
@@ -28,10 +28,10 @@ const PlaceOrder = () => {
   const onChangeHandler = (e) => {
     const name = e.target.name
     const value = e.target.value
-    setFormData(data => ({...data, [name]: value}))
+    setFormData(data => ({ ...data, [name]: value }))
   }
 
-  
+
   const onSubmitHandler = async (e) => {
     e.preventDefault()
     try {
@@ -53,9 +53,10 @@ const PlaceOrder = () => {
         items: orderItems,
         amount: getCartAmount() + delivery_fee
       }
-      switch(method) {
+      console.log(orderData)
+      switch (method) {
         case 'cod':
-          const result = await axios.post(`${serverUrl}/api/order/placeorder`, orderData, {withCredentials: true})
+          const result = await axios.post(`${serverUrl}/api/order/placeorder`, orderData, { withCredentials: true })
           console.log(result.data)
           if (result.data) {
             setCartItem({})
@@ -64,15 +65,12 @@ const PlaceOrder = () => {
             console.log(result.data.message)
           }
           break;
-
-        // For online payment
         case 'esewa':
-          const resultEsewa = await axios.post(`${serverUrl}/api/order/esewa`, orderData, {withCredentials: true})
-
-          if (esewa.data) {
-            // initPay(resultRazorpay.data)
+          const res = await axios.post(`${serverUrl}/api/order/placeorderbyesewa`, orderData, { withCredentials: true })
+          if (res.data) {
+            console.log(res.data)
+            navigate('/placeorderbyesewa')
           }
-          break;
 
         default:
           break;

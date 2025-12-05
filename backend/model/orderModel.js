@@ -31,6 +31,10 @@ const orderSchema = new mongoose.Schema({
         required: true,
         default: false
     },
+    transactionId: {
+        type: String,
+        default: null
+    },
     date: {
         type: Number,
         required: true

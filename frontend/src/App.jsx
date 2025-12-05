@@ -15,6 +15,9 @@ import Cart from './pages/Cart'
 import PlaceOrder from './pages/PlaceOrder'
 import Order from './pages/Order'
 import NotFound from './pages/NotFound'
+import PaymentForm from './component/PaymentForm'
+import Success from './pages/Success'
+import Failure from './pages/Failure'
 
 function App() {
   let { userData } = useContext(userDataContext)
@@ -52,7 +55,13 @@ function App() {
           state={{ from: location.pathname }} />} />
         <Route path='/placeorder' element={userData ? <PlaceOrder /> : <Navigate to="/login"
           state={{ from: location.pathname }} />} />
+        <Route path='/placeorderbyesewa' element={userData ? <PaymentForm /> : <Navigate to="/login"
+          state={{ from: location.pathname }} />} />
         <Route path='/order' element={userData ? <Order /> : <Navigate to="/login"
+          state={{ from: location.pathname }} />} />
+        <Route path='/esewa-success' element={userData ? <Success /> : <Navigate to="/login"
+          state={{ from: location.pathname }} />} />
+          <Route path='/payment-failure' element={userData ? <Failure /> : <Navigate to="/login"
           state={{ from: location.pathname }} />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
