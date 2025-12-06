@@ -4,11 +4,15 @@ import { shopDataContext } from "../context/ShopContext";
 import { generateUniqueId } from "esewajs";
 import { AuthDataContext } from "../context/AuthContext";
 import { toast } from 'react-toastify';
+import { useLocation } from "react-router-dom";
 
 const PaymentForm = () => {
-  const { cartItem, products, getCartAmount, delivery_fee, setCartItem } = useContext(shopDataContext);
+  const { cartItem, products, getCartAmount, getSingleCartAmount, delivery_fee, setCartItem } = useContext(shopDataContext);
 
   const [amount, setAmount] = useState("");
+
+  const location = useLocation()
+  const { productId, size } = location.state || {}
 
   const serverUrl = "http://localhost:8000";
 
@@ -26,56 +30,56 @@ const PaymentForm = () => {
 
   // Calculate total amount on component mount
   useEffect(() => {
-    const total = getCartAmount() + delivery_fee;
+    console.log("productId, size, cartItem", productId, size, cartItem)
+    if (!productId || !size) return; // skip if undefined
+
+    const total = getSingleCartAmount(productId, size) + delivery_fee;
+    console.log("Calculated total:", total)
     setAmount(total);
-  }, [cartItem, getCartAmount, delivery_fee]);
+  }, [cartItem, getSingleCartAmount, delivery_fee, productId, size]);
 
   const handlePayment = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  try {
-    // Build order items
-    let orderItems = [];
-    for (const productId in cartItem) {
-      for (const size in cartItem[productId]) {
-        if (cartItem[productId][size] > 0) {
-          const product = structuredClone(products.find(p => p._id === productId));
-          if (product) {
-            product.size = size;
-            product.quantity = cartItem[productId][size];
-            orderItems.push(product);
-          }
+    try {
+      let orderItems = [];
+      if (productId && size) {
+        const quantity = cartItem[productId][size]
+        const itemInfo = structuredClone(products.find(p => p._id === productId))
+        if (itemInfo) {
+          itemInfo.size = size
+          itemInfo.quantity = quantity
+          orderItems.push(itemInfo) // Only push the product being paid
         }
       }
-    }
 
-    // Order data
-    const orderData = {
-      address: formData,
-      items: orderItems,
-      amount: getCartAmount() + delivery_fee, // calculate total
-    };
+      // Order data
+      const orderData = {
+        address: formData,
+        items: orderItems,
+        amount: getSingleCartAmount(productId, size) + delivery_fee, // calculate total
+      };
 
-    // Send order to backend
-    const res = await axios.post(
-      `${serverUrl}/api/order/placeorderbyesewa`,
-      orderData,
-      { withCredentials: true }
-    );
+      // Send order to backend
+      const res = await axios.post(
+        `${serverUrl}/api/order/placeorderbyesewa`,
+        orderData,
+        { withCredentials: true }
+      );
 
-    // Backend returns: { url, transactionId }
-    if (res.data.url) {
-      window.location.href = res.data.url; // Redirect to eSewa payment page
-    } else {
-      console.error("Payment URL not returned from backend");
+      // Backend returns: { url, transactionId }
+      if (res.data.url) {
+        window.location.href = res.data.url; // Redirect to eSewa payment page
+      } else {
+        console.error("Payment URL not returned from backend");
+        toast.error("Payment Error")
+      }
+
+    } catch (error) {
       toast.error("Payment Error")
+      console.error("Payment error:", error);
     }
-
-  } catch (error) {
-    toast.error("Payment Error")
-    console.error("Payment error:", error);
-  }
-};
+  };
 
 
   return (

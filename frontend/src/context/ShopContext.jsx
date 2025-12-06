@@ -6,14 +6,14 @@ import { userDataContext } from './UserContext'
 
 export const shopDataContext = createContext()
 
-const ShopContext = ({children}) => {
+const ShopContext = ({ children }) => {
 
     let [products, setProducts] = useState([])
     let [search, setSearch] = useState('')
-    let {userData} = useContext(userDataContext)
+    let { userData } = useContext(userDataContext)
     let [showSearch, setShowSearch] = useState(false)
     let [loading, setLoading] = useState(false)
-    let {serverUrl} = useContext(AuthDataContext)
+    let { serverUrl } = useContext(AuthDataContext)
     let [cartItem, setCartItem] = useState({})
     let currency = "Rs."
     let delivery_fee = 100
@@ -47,11 +47,10 @@ const ShopContext = ({children}) => {
         }
 
         setCartItem(cartData)
-        
+
         if (userData) {
             try {
-                let result = await axios.post(`${serverUrl}/api/cart/add`, { itemId, size }, {withCredentials: true})
-                // setLoading(false)
+                let result = await axios.post(`${serverUrl}/api/cart/add`, { itemId, size }, { withCredentials: true })
             } catch (error) {
                 console.log(`addToCart error: ${error}`)
             }
@@ -63,7 +62,7 @@ const ShopContext = ({children}) => {
     const getUserCart = async () => {
         if (!userData) return
         try {
-            const result = await axios.post(`${serverUrl}/api/cart/get`, {}, {withCredentials: true})
+            const result = await axios.post(`${serverUrl}/api/cart/get`, {}, { withCredentials: true })
 
             setCartItem(result.data)
 
@@ -79,7 +78,7 @@ const ShopContext = ({children}) => {
 
         if (userData) {
             try {
-                await axios.post(`${serverUrl}/api/cart/update`, { itemId, size, quantity }, {withCredentials: true})
+                await axios.post(`${serverUrl}/api/cart/update`, { itemId, size, quantity }, { withCredentials: true })
             } catch (error) {
                 console.log(`updateQuantity error: ${error}`)
             }
@@ -101,6 +100,20 @@ const ShopContext = ({children}) => {
         }
         return totalCount
     }
+
+    const getSingleCartAmount = (itemId, size) => {
+        try {
+            const itemInfo = products.find(product => product._id === itemId)
+            if (!itemInfo) return 0
+            const quantity = cartItem[itemId]?.[size] || 0
+            return itemInfo.price * quantity
+        } catch (error) {
+            console.log("getSingleCartAmount error:", error)
+            return 0
+        }
+    }
+
+
 
     const getCartAmount = () => {
         let totalAmount = 0
@@ -131,16 +144,16 @@ const ShopContext = ({children}) => {
     }, [userData])
 
     let value = {
-        products, currency, delivery_fee, getProducts, search, setSearch, showSearch, setShowSearch, cartItem, addToCart, getCartCount, getCartAmount, setCartItem, getUserCart, updateQuantity
+        products, currency, delivery_fee, getProducts, search, setSearch, showSearch, setShowSearch, cartItem, addToCart, getCartCount, getCartAmount, setCartItem, getUserCart, updateQuantity, getSingleCartAmount
     }
 
-  return (
-    <div>
-        <shopDataContext.Provider value={value}>
-            {children}
-        </shopDataContext.Provider>
-    </div>
-  )
+    return (
+        <div>
+            <shopDataContext.Provider value={value}>
+                {children}
+            </shopDataContext.Provider>
+        </div>
+    )
 }
 
 export default ShopContext
